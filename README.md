@@ -1,6 +1,11 @@
 # Checkout service
 Simple Golang checkout server/client based on gRPC
 
+## How to get
+```sh
+go get github.com/sysdevguru/checkout-service
+```
+
 ## How to run server
 ```sh
 docker login
