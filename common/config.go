@@ -21,11 +21,11 @@ type GlobalConfig struct {
 
 // ServerConfig contains server related variables
 type ServerConfig struct {
-	GRPCPort string `yaml:"grpcPort"`
-	Currency string `yaml:"currency"`
-	PenPrice float64 `yanml:"penprice"`
+	GRPCPort    string  `yaml:"grpcPort"`
+	Currency    string  `yaml:"currency"`
+	PenPrice    float64 `yanml:"penprice"`
 	TshirtPrice float64 `yaml:"tshirtprice"`
-	MugPrice float64 `yaml:"mugprice"`
+	MugPrice    float64 `yaml:"mugprice"`
 }
 
 func loadConfig(file string) (GlobalConfig, error) {

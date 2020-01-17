@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	basketMap  map[string]pb.Basket
+	basketMap map[string]pb.Basket
 )
 
 type GRPCServer struct{}
@@ -29,7 +29,7 @@ func (s *GRPCServer) CreateBasket(ctx context.Context, in *pb.CreateBasketReques
 		return &pb.Basket{}, err
 	}
 	basket := pb.Basket{
-		Id: string(basketID),
+		Id:    string(basketID),
 		Items: []string{},
 		Total: "",
 	}
@@ -65,7 +65,7 @@ func (s *GRPCServer) GetBasketAmount(ctx context.Context, in *pb.GetAmountReques
 	basket.Total = total + common.Server.Currency
 
 	log.Printf("checkout-server: Total amount %v%v of basket %v\n", total, common.Server.Currency, basketID)
-	
+
 	return &pb.GetAmountResponse{
 		Total: total + common.Server.Currency,
 	}, nil

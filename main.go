@@ -4,9 +4,9 @@ import (
 	"log"
 	"net"
 
+	pb "github.com/sysdevguru/checkout-service/api"
 	"github.com/sysdevguru/checkout-service/common"
 	"github.com/sysdevguru/checkout-service/server"
-	pb "github.com/sysdevguru/checkout-service/api"
 	"google.golang.org/grpc"
 )
 
