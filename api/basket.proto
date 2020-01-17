@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package api;
+
+service BasketService {
+    rpc CreateBasket(CreateBasketRequest) returns (Basket) {}
+    rpc AddToBasket(AddProductRequest) returns (BasketResponse) {}
+    rpc GetBasketAmount(GetAmountRequest) returns (GetAmountResponse) {}
+    rpc RemoveBasket(RemoveBasketRequest) returns (BasketResponse) {}
+}
+
+message AddProductRequest {
+    string basketid = 1;
+    string product = 2;
+}
+
+message CreateBasketRequest {
+
+}
+
+message GetAmountRequest {
+    string basketid = 1;
+}
+
+message GetAmountResponse {
+    string total = 1;
+}
+
+message RemoveBasketRequest {
+    string basketid = 1;
+}
+
+message Basket {
+    string id = 1;
+    repeated string items = 2;
+    string total = 3;
+}
+
+message BasketResponse {
+    int32 code = 1;
+    string error = 2;
+}

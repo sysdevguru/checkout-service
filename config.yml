@@ -1,0 +1,6 @@
+server:
+  grpcPort: :8080
+  currency: €
+  penprice: 5.00
+  tshirtprice: 20.00
+  mugprice: 7.50
