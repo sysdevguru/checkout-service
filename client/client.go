@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"log"
-	"time"
 
 	pb "github.com/sysdevguru/checkout-service/api"
 	"google.golang.org/grpc"
@@ -11,21 +10,19 @@ import (
 
 var (
 	grpcClient  pb.BasketServiceClient
-	grpcContext context.Context
 )
 
 func init() {
-	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("checkout-client: did not connect to grpc server: %v", err)
 	}
 	grpcClient = pb.NewBasketServiceClient(conn)
-	grpcContext, _ = context.WithTimeout(context.Background(), time.Second)
 }
 
 func main() {
 	// create a basket
-	basket, err := grpcClient.CreateBasket(grpcContext, &pb.CreateBasketRequest{})
+	basket, err := grpcClient.CreateBasket(context.Background(), &pb.CreateBasketRequest{})
 	if err != nil {
 		log.Fatalf("checkout-client: creating a basket failure: %v", err)
 	}
@@ -34,7 +31,7 @@ func main() {
 	// add products to basket
 	products := []string{"PEN", "TSHIRT", "PEN", "PEN", "MUG", "TSHIRT"}
 	for _, v := range products {
-		_, err = grpcClient.AddToBasket(grpcContext, &pb.AddProductRequest{
+		_, err = grpcClient.AddToBasket(context.Background(), &pb.AddProductRequest{
 			Basketid: basket.Id,
 			Product:  v,
 		})
@@ -45,7 +42,7 @@ func main() {
 	}
 
 	// get total of the basket
-	resp, err := grpcClient.GetBasketAmount(grpcContext, &pb.GetAmountRequest{
+	resp, err := grpcClient.GetBasketAmount(context.Background(), &pb.GetAmountRequest{
 		Basketid: basket.Id,
 	})
 	if err != nil {
@@ -54,7 +51,7 @@ func main() {
 	log.Printf("checkout-client: basket %v amount is %v\n", basket.Id, resp.Total)
 
 	// remove basket
-	_, err = grpcClient.RemoveBasket(grpcContext, &pb.RemoveBasketRequest{
+	_, err = grpcClient.RemoveBasket(context.Background(), &pb.RemoveBasketRequest{
 		Basketid: basket.Id,
 	})
 	if err != nil {
